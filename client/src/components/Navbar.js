@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Modal, Tab } from 'react-bootstrap';
+import { useQuery } from '@apollo/client';
 import SignUpForm from './SignupForm';
 import LoginForm from './LoginForm';
 
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
+  const { loading, data } = useQuery(QUERY_MATCHUPS, {
+    fetchPolicy: "no-cache"
+  });
+
   // set modal display state
   const [showModal, setShowModal] = useState(false);
 

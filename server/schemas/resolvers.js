@@ -4,10 +4,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    getSingleUser: async () => {
-      return await User.findOne({
-        $or: [{ _id: user ? user._id : params.id }, { username: params.username }],
-      });
+    getSingleUser: async (parent, args, context) => {
+      return await User.findById(args._id);
     },
   },
   Mutation: {
@@ -33,11 +31,11 @@ const resolvers = {
 
       return { token, user };
     },
-    saveBook: async (user, body) => {
+    saveBook: async (parent, args, context) => {
       try {
         const updatedUser = await User.findOneAndUpdate(
-          { _id: user._id },
-          { $addToSet: { savedBooks: body } },
+          { _id: args._id },
+          { $addToSet: { savedBooks: args._id} },
           { new: true, runValidators: true }
         );
         return updatedUser;
@@ -46,10 +44,10 @@ const resolvers = {
         return err;
       }
     },
-    deleteBook: async (user, params) => {
+    deleteBook: async (parent, args, context) => {
       const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id },
-        { $pull: { savedBooks: { _id: params._id } } },
+        { _id: args._id },
+        { $pull: { savedBooks: { _id: args._id } } },
         { new: true }
       );
       if (!updatedUser) {
