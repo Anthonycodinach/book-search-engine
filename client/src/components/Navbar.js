@@ -8,9 +8,6 @@ import LoginForm from './LoginForm';
 import Auth from '../utils/auth';
 
 const AppNavbar = () => {
-  const { loading, data } = useQuery(QUERY_MATCHUPS, {
-    fetchPolicy: "no-cache"
-  });
 
   // set modal display state
   const [showModal, setShowModal] = useState(false);
