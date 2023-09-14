@@ -38,7 +38,7 @@ mutation Mutation($saveBookId2: ID!, $bookId: ID!) {
 `;
 
 export const DELETE_BOOK = gql`
-mutation DeleteBook($deleteBookId2: ID!) {
+mutation deleteBook($deleteBookId2: ID!) {
   deleteBook(_id: $deleteBookId2) {
     username
     savedBooks {
